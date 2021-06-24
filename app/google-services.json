@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "457212168770",
+    "project_id": "blogapp-d6ce2",
+    "storage_bucket": "blogapp-d6ce2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:457212168770:android:4b95be007943f82ab57bdb",
+        "android_client_info": {
+          "package_name": "com.wikilift.blogapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "457212168770-mf91nta4ksi9qioaavknmml3dtrsgpc5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wikilift.blogapp",
+            "certificate_hash": "9be5f012877e3f4ddc080e5cd9d7bc30d0619496"
+          }
+        },
+        {
+          "client_id": "457212168770-m1erojpr7r7kn581lt99mgqcmfln4pp3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDID5rTYd2A1yWFwXVbAKdly6tdMjrm3kk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "457212168770-m1erojpr7r7kn581lt99mgqcmfln4pp3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
