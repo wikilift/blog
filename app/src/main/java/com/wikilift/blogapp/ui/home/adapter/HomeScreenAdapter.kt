@@ -36,7 +36,7 @@ class HomeScreenAdapter(private val postList: List<Post>) :
             //aqui construyo la vista
             //accede a cada objeto el item                                  //en que parte de la vista
             Glide.with(context).load(item.post_image).centerCrop().into(binding.postImage)
-            Glide.with(context).load(item.profile_name).centerCrop().into(binding.profilePicture)
+           Glide.with(context).load(item.profile_name).centerCrop().into(binding.profilePicture)
             binding.profileName.text = item.profile_name
             binding.postTimestamp.text = "Hace 2 horas"
 
