@@ -12,13 +12,14 @@ import androidx.navigation.fragment.findNavController
 
 import com.google.firebase.auth.FirebaseAuth
 import com.wikilift.blogapp.R
-import com.wikilift.blogapp.core.Resource
-import com.wikilift.blogapp.data.remote.auth.LoginDataSource
+import com.wikilift.blogapp.core.Result
+import com.wikilift.blogapp.data.remote.auth.AuthDataSource
 import com.wikilift.blogapp.databinding.FragmentLoginBinding
 
-import com.wikilift.blogapp.domain.auth.LoginRepoImpl
-import com.wikilift.blogapp.presentation.auth.LoginScreenViewModel
-import com.wikilift.blogapp.presentation.auth.LoginScreenViewModelFactory
+import com.wikilift.blogapp.domain.auth.AuthRepoImpl
+import com.wikilift.blogapp.presentation.auth.AuthViewModel
+
+import com.wikilift.blogapp.presentation.auth.AuthViewModelFactory
 
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
@@ -26,9 +27,9 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private lateinit var binding: FragmentLoginBinding
 
     //instancia del viemodel inyección de dependendias
-    private val viewModel by viewModels<LoginScreenViewModel> {
-        LoginScreenViewModelFactory(LoginRepoImpl(
-        LoginDataSource() ))  }
+    private val viewModel by viewModels<AuthViewModel> {
+        AuthViewModelFactory(AuthRepoImpl(
+        AuthDataSource() ))  }
 
     //by lazy se inicializa de esta manera y es ese tipo de dato
     //by lazy cuando intentes acceder a esta variable va a revisar
@@ -94,12 +95,12 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private fun signIn(email:String,password:String){
         viewModel.signIn(email,password).observe(viewLifecycleOwner, Observer {result->
             when(result){
-                is Resource.Loading->{
+                is Result.Loading->{
                     binding.progressBar.visibility=View.VISIBLE
                     binding.btnSignin.isEnabled=false
 
                 }
-                is Resource.Succes->{
+                is Result.Succes->{
 
                     binding.progressBar.visibility=View.GONE
 
@@ -107,7 +108,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                     findNavController().navigate(R.id.action_loginFragment_to_homeScreenFragment)
                     Toast.makeText(context,"Welcome ${result.data?.email}",Toast.LENGTH_SHORT).show()
                 }
-                is Resource.Failure->{
+                is Result.Failure->{
                     binding.progressBar.visibility=View.GONE
                     binding.btnSignin.isEnabled=true
                     Toast.makeText(requireContext(),"${result.exception}",Toast.LENGTH_SHORT).show()

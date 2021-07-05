@@ -1,13 +1,13 @@
 package com.wikilift.blogapp.data.remote.home
 
 import com.google.firebase.firestore.FirebaseFirestore
-import com.wikilift.blogapp.core.Resource
+import com.wikilift.blogapp.core.Result
 import com.wikilift.blogapp.data.model.Post
 import kotlinx.coroutines.tasks.await
 
 class HomeScreenDataSource {
     //metodos para traer de firebase, con corutinas
-    suspend fun getLatestPosts(): Resource<List<Post>> {
+    suspend fun getLatestPosts(): Result<List<Post>> {
         val postList = mutableListOf<Post>()
         val querySnapshot = FirebaseFirestore.getInstance().collection("posts").get().await()
         //saco todos los documentos que tiene dentro
@@ -17,7 +17,7 @@ class HomeScreenDataSource {
                 postList.add(it)
             }
         }
-        return Resource.Succes(postList)//devuelve una lista y con el estado succes
+        return Result.Succes(postList)//devuelve una lista y con el estado succes
 
     }
 }

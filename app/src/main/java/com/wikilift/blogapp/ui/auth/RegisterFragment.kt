@@ -7,9 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.wikilift.blogapp.R
+import com.wikilift.blogapp.core.Result
 import com.wikilift.blogapp.core.auth.CompareLogin
+import com.wikilift.blogapp.data.remote.auth.AuthDataSource
 import com.wikilift.blogapp.databinding.FragmentRegisterBinding
+import com.wikilift.blogapp.domain.auth.AuthRepoImpl
+import com.wikilift.blogapp.presentation.auth.AuthViewModel
+import com.wikilift.blogapp.presentation.auth.AuthViewModelFactory
 
 
 class RegisterFragment : Fragment(R.layout.fragment_register), View.OnFocusChangeListener {
@@ -19,6 +27,13 @@ class RegisterFragment : Fragment(R.layout.fragment_register), View.OnFocusChang
     private lateinit var password: String
     private lateinit var confirmPassword: String
     private lateinit var userName: String
+    private val viewModel by viewModels<AuthViewModel> {
+        AuthViewModelFactory(
+            AuthRepoImpl(
+                AuthDataSource()
+            )
+        )
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -44,13 +59,36 @@ class RegisterFragment : Fragment(R.layout.fragment_register), View.OnFocusChang
             if (password != confirmPassword || CompareLogin.isBlankField(password) ||
                 !CompareLogin.isEmailValid(email)
             ) {
-
                 return@setOnClickListener
             }
-            Log.d("signUpData","data: $userName $password $confirmPassword $email ")
+
+            createUser(email,password,userName)
+            Log.d("signUpData", "data: $userName $password $confirmPassword $email ")
         }
 
 
+    }
+
+    private fun createUser(email: String, password: String, userName: String) {
+        viewModel.signUp(email,password,userName).observe(viewLifecycleOwner, Observer {result->
+            when(result){
+                is Result.Loading->{
+                    binding.progressBar.visibility=View.VISIBLE
+                    binding.btnSignUp.isEnabled=false
+                }
+                is Result.Succes->{
+                    binding.progressBar.visibility=View.GONE
+                    findNavController().navigate(R.id.action_registerFragment_to_homeScreenFragment)
+                    Toast.makeText(requireContext(),"Bienvenido ${result.data?.email}",Toast.LENGTH_SHORT).show()
+                }
+                is Result.Failure->{
+                    binding.progressBar.visibility=View.GONE
+                    binding.btnSignUp.isEnabled=true
+                    Toast.makeText(context,"${result.exception}",Toast.LENGTH_SHORT).show()
+                }
+
+            }
+        })
     }
 
     override fun onFocusChange(v: View?, b: Boolean) {
