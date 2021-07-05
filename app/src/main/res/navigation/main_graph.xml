@@ -43,4 +43,14 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
+    <fragment
+        android:id="@+id/cameraFragment"
+        android:name="com.wikilift.blogapp.ui.camera.CameraFragment"
+        android:label="fragment_camera"
+        tools:layout="@layout/fragment_camera" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.wikilift.blogapp.ui.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>
