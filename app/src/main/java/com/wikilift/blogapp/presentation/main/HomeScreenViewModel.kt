@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.liveData
 import com.wikilift.blogapp.core.Resource
-import com.wikilift.blogapp.domain.HomeScreenRepo
+import com.wikilift.blogapp.domain.home.HomeScreenRepo
 import kotlinx.coroutines.Dispatchers
 
 //al viewmodel se le debe pasar un constructor vacio, y como no lo es
@@ -23,7 +23,7 @@ class HomeScreenViewModel(private val repo: HomeScreenRepo) : ViewModel() {
     }
 }
 //va la factoryclass
-class HomeScreenViewModelFactory(private val repo:HomeScreenRepo):ViewModelProvider.Factory{
+class HomeScreenViewModelFactory(private val repo: HomeScreenRepo):ViewModelProvider.Factory{
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         //decimos como se crea el viewmodel
         return modelClass.getConstructor(HomeScreenRepo::class.java).newInstance(repo)

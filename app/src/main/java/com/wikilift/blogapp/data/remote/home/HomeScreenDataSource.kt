@@ -1,7 +1,6 @@
-package com.wikilift.blogapp.data.remote
+package com.wikilift.blogapp.data.remote.home
 
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.toObject
 import com.wikilift.blogapp.core.Resource
 import com.wikilift.blogapp.data.model.Post
 import kotlinx.coroutines.tasks.await

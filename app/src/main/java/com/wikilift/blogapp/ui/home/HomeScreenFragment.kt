@@ -2,40 +2,51 @@ package com.wikilift.blogapp.ui.home
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import com.google.firebase.Timestamp
+import android.widget.Toast
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.wikilift.blogapp.R
-import com.wikilift.blogapp.data.model.Post
+import com.wikilift.blogapp.core.Resource
+import com.wikilift.blogapp.data.remote.home.HomeScreenDataSource
 import com.wikilift.blogapp.databinding.FragmentHomeScreenBinding
-import com.wikilift.blogapp.databinding.PostItemViewBinding
+import com.wikilift.blogapp.domain.home.HomeScreenRepoImpl
+import com.wikilift.blogapp.presentation.HomeScreenViewModel
+import com.wikilift.blogapp.presentation.HomeScreenViewModelFactory
 import com.wikilift.blogapp.ui.home.adapter.HomeScreenAdapter
 
 
 class HomeScreenFragment : Fragment(R.layout.fragment_home_screen) {
 
     private lateinit var binding: FragmentHomeScreenBinding
+    private val viewModel by viewModels <HomeScreenViewModel> {
+        HomeScreenViewModelFactory(HomeScreenRepoImpl(HomeScreenDataSource()))
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentHomeScreenBinding.bind(view)
-        val postList = listOf(
-            Post(
-                "https://static.eldiario.es/clip/d3c30dd7-de6b-4a12-ac7b-c404827d5e3b_9-16-aspect-ratio_default_0.jpg",
-                "danié",
-                Timestamp.now(),
-                "https://static.eldiario.es/clip/d3c30dd7-de6b-4a12-ac7b-c404827d5e3b_9-16-aspect-ratio_default_0.jpg"
-            ),
-            Post(
-                "https://static.eldiario.es/clip/b8f9908d-bd16-4331-a52a-1b3cd7e7d817_9-16-aspect-ratio_default_0.jpg",
-                "Sebastián",
-                Timestamp.now(),
-                "https://static.eldiario.es/clip/b8f9908d-bd16-4331-a52a-1b3cd7e7d817_9-16-aspect-ratio_default_0.jpg"
-            )
-        )
+        viewModel.fetchLatestPost().observe(viewLifecycleOwner, Observer {result->
+            when(result){
+                is Resource.Loading->{
+                    binding.progressBar.visibility=View.VISIBLE
+                }
+                is Resource.Succes->{
+                    //escondo el loading
+                    binding.progressBar.visibility=View.GONE
+                    //accedo a los datos del recurso
+                    binding.rvHome.adapter=HomeScreenAdapter(result.data)
+                }
+                is Resource.Failure->{
+                    //escondo el loading
+                    binding.progressBar.visibility=View.GONE
+                    Toast.makeText(requireContext(),"ocurrio un error: ${result.exception}",Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
 
-        binding.rvHome.adapter = HomeScreenAdapter(postList)
+
     }
 
 

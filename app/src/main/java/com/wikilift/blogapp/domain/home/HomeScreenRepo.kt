@@ -1,4 +1,4 @@
-package com.wikilift.blogapp.domain
+package com.wikilift.blogapp.domain.home
 
 import com.wikilift.blogapp.core.Resource
 import com.wikilift.blogapp.data.model.Post
