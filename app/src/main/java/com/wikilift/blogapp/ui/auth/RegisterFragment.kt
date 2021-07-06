@@ -78,7 +78,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register), View.OnFocusChang
                 }
                 is Result.Succes->{
                     binding.progressBar.visibility=View.GONE
-                    findNavController().navigate(R.id.action_registerFragment_to_homeScreenFragment)
+                    findNavController().navigate(R.id.action_registerFragment_to_setupProfileFragment)
                     Toast.makeText(requireContext(),"Bienvenido ${result.data?.email}",Toast.LENGTH_SHORT).show()
                 }
                 is Result.Failure->{

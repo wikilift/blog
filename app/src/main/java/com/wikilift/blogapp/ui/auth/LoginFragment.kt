@@ -51,7 +51,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private fun isUserLoggedIn() {
         firebaseAuth.currentUser?.let {
-            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+            findNavController().navigate(R.id.action_loginFragment_to_homeScreenFragment)
         }
     }
 

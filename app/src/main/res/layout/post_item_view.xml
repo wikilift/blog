@@ -3,13 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
+    android:paddingHorizontal="8dp"
+    android:paddingVertical="8dp"
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginBottom="8dp"
         android:gravity="center"
-        android:layout_margin="8dp">
+        >
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profile_picture"
@@ -38,5 +41,13 @@
         android:layout_height="250dp"
         android:layout_marginTop="2dp"
         tools:background="@mipmap/ic_launcher_round"/>
+    <TextView
+        android:id="@+id/txt_post_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Descripción de la foto"
+        android:layout_marginTop="8dp"
+        android:maxLines="4"
+        android:ellipsize="end"/>
 
 </LinearLayout>

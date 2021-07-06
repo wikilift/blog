@@ -1,16 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
     tools:context=".ui.camera.CameraFragment"
    >
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+  <ImageView
+     android:id="@+id/img_add_photo"
+      android:layout_marginTop="16dp"
+      android:layout_width="match_parent"
+      android:layout_height="250dp"
+      android:scaleType="centerCrop"/>
+    <EditText
+        android:id="@+id/edt_photo_description"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-      android:gravity="center"
-        android:text="CAMARA" />
+        android:layout_height="wrap_content"
+        android:hint="Descripción de la foto"
+        android:gravity="center"
+        android:layout_marginTop="16dp"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_upload_photo"
+        android:text="upload photo"
+        android:layout_marginTop="16dp"
+        android:layout_gravity="center"/>
 
-</FrameLayout>
+</LinearLayout>

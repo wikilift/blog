@@ -3,6 +3,7 @@ package com.wikilift.blogapp.ui.home.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -39,6 +40,12 @@ class HomeScreenAdapter(private val postList: List<Post>) :
             Glide.with(context).load(item.profile_picture).centerCrop().into(binding.profilePicture)
             binding.profileName.text = item.profile_name
             binding.postTimestamp.text = "Hace 2 horas"
+            if(item.post_description.isEmpty()){
+                binding.txtPostDescription.visibility= View.GONE
+            }else{
+                binding.txtPostDescription.text=  item.post_description
+            }
+
 
         }
     }
